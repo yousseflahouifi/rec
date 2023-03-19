@@ -16,7 +16,6 @@ jobs:
         uses: fguisso/amass-action@main
         with:
           domains: trickest.com
-          brute: true
           output: hosts.txt
 
       - name: GitHub Workflow artifacts
