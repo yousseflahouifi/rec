@@ -18,18 +18,10 @@ jobs:
           domains: trickest.com
           output: hosts.txt
           
-      - name: Naabu - Port Scannner
+      - name: Naabu - Port Scanner
         uses: projectdiscovery/naabu-action@main
         with:
-            list: hosts.txt
-            ports: "80,443"
-            output: urls.txt
-            
-      - name: Nuclei - DAST Scan
-        uses: projectdiscovery/nuclei-action@main
-        with:
-          urls: urls.txt
-          output: nuclei.txt
+          list: hosts.txt
 
       - name: GitHub Workflow artifacts
         uses: actions/upload-artifact@v2
@@ -38,4 +30,3 @@ jobs:
           path: |
             hosts.txt
             urls.txt
-            nuclei.txt
