@@ -16,13 +16,13 @@ jobs:
         uses: fguisso/amass-action@main
         with:
           domains: trickest.com
-          brute: true
           output: hosts.txt
           
       - name: Naabu - Port Scannner
         uses: projectdiscovery/naabu-action@main
         with:
             list: hosts.txt
+            ports: "80,443"
             output: urls.txt
             
       - name: Nuclei - DAST Scan
