@@ -3,7 +3,7 @@ name: Test
 on:
   push:
 
-jobs:         
+jobs:
   recon:
     runs-on: ubuntu-latest
     steps:
@@ -16,10 +16,26 @@ jobs:
         uses: fguisso/amass-action@main
         with:
           domains: trickest.com
+          brute: true
           output: hosts.txt
+          
+      - name: Naabu - Port Scannner
+        uses: projectdiscovery/naabu-action@main
+        with:
+            list: hosts.txt
+            output: urls.txt
+            
+      - name: Nuclei - DAST Scan
+        uses: projectdiscovery/nuclei-action@main
+        with:
+          urls: urls.txt
+          output: nuclei.txt
 
       - name: GitHub Workflow artifacts
         uses: actions/upload-artifact@v2
         with:
           name: hosts.txt
-          path: hosts.txt
+          path: |
+            hosts.txt
+            urls.txt
+            nuclei.txt
